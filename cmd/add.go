@@ -45,7 +45,7 @@ var add = &cobra.Command{
 		InfoLogger.Println("Closing File")
 		defer TaskList.Close()
 
-		Date := time.Now().Format("20060102150405")
+		Date := time.Now().Format(time.DateTime)
 
 		InfoLogger.Println("Assembling Data")
 		Status := "Open"
