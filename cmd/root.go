@@ -6,7 +6,8 @@ import (
 
 var (
 	// Used for flags.
-	Task string
+	Task   string
+	Status string
 
 	rootCmd = &cobra.Command{
 		Use:   "todo-CLI",
@@ -22,4 +23,5 @@ func Execute() error {
 
 func init() {
 	rootCmd.PersistentFlags().StringVarP(&Task, "task", "t", "", "task to work with")
+	rootCmd.PersistentFlags().StringVarP(&Status, "status", "s", "", "status to change to")
 }

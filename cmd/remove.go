@@ -2,6 +2,7 @@ package cmd
 
 import (
 	"encoding/csv"
+	"fmt"
 	"io"
 	"log"
 	"os"
@@ -58,6 +59,7 @@ var remove = &cobra.Command{
 		InfoLogger.Println("Removing Targets from Todo List")
 
 		OutputBuffer := [][]string{}
+		var Changecount int = 0
 
 		for {
 			records, err := reader.Read()
@@ -71,6 +73,8 @@ var remove = &cobra.Command{
 
 			if records[0] != Task {
 				OutputBuffer = append(OutputBuffer, records)
+			} else {
+				Changecount++
 			}
 
 		}
@@ -85,6 +89,17 @@ var remove = &cobra.Command{
 
 		InfoLogger.Println("Writing to Task List File")
 		writer.WriteAll(OutputBuffer)
+
+		if Changecount >= 2 {
+			WarnLogger.Println("Modified", Changecount, "Tasks")
+			fmt.Println("Modified", Changecount, "Tasks")
+		} else if Changecount == 0 {
+			WarnLogger.Println("No Tasks found to modify")
+			fmt.Println("No Tasks found to modify")
+		} else {
+			WarnLogger.Println("succesfully modified Task")
+			fmt.Println("succesfully modified Task")
+		}
 
 	},
 }
